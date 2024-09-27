@@ -2,16 +2,23 @@ package com.example.cosmicwatchapp;
 
 import android.app.Application;
 
+import androidx.work.OneTimeWorkRequest;
+
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import androidx.work.WorkManager;
+import android.content.Context;
 
 public class PictureOfDayApplication extends Application {
     private NasaApiService nasaApiService;
 
     @Override
     public void onCreate() {
+
         super.onCreate();
+        OneTimeWorkRequest messageWorkRequest = new OneTimeWorkRequest.Builder(MessageWorker.class).build();
+        WorkManager.getInstance(this).enqueue(messageWorkRequest);
         nasaApiService = getNasaApiService();
     }
 
@@ -25,6 +32,6 @@ public class PictureOfDayApplication extends Application {
     }
 
     public void fetchPictureOfDay(Callback<Picture> callback) {
-        nasaApiService.getPictureOfDay("YOUR_NASA_API_KEY").enqueue(callback);
+        nasaApiService.getPictureOfDay("DEMO_KEY").enqueue(callback);
     }
 }
