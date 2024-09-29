@@ -8,9 +8,12 @@ public class RabbitMQClient {
     private Channel channel;
     private String exchangeName;
 
-    public RabbitMQClient(String host, String exchangeName) {
+    public RabbitMQClient(String host, String exchangeName, String username, String password, String virtualHost) {
         this.factory = new ConnectionFactory();
         factory.setHost(host);
+        factory.setUsername(username);
+        factory.setPassword(password);
+        factory.setVirtualHost(virtualHost);
         this.exchangeName = exchangeName;
     }
 
