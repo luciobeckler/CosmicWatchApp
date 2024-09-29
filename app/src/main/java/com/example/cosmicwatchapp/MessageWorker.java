@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.google.gson.Gson;
 import com.rabbitmq.client.DeliverCallback;
 
 import java.nio.charset.StandardCharsets;
@@ -58,8 +59,16 @@ public class MessageWorker extends Worker {
     // Método chamado quando uma mensagem é recebida
     public void onMessageReceived(String message) {
         Log.d("COSMIC WORKER", "Mensagem recebida: " + message);
+
+        Gson gson = new Gson();
+        Meteor meteor = gson.fromJson(message, Meteor.class);
+
+        // Criar a mensagem personalizada para a notificação
+        String notificationMessage = String.format("O meteoro %s tem chances de atingir a Terra. Fujam para Marte!",
+                meteor.getName());
+
         // Implementar lógica para processar a mensagem
-        showNotification("Meteoro se aproximando!", message);
+        showNotification("Meteoro se aproximando!", notificationMessage);
     }
 
     public void createNotificationChannel() {
