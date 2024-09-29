@@ -17,8 +17,6 @@ public class PictureOfDayApplication extends Application {
     public void onCreate() {
 
         super.onCreate();
-        OneTimeWorkRequest messageWorkRequest = new OneTimeWorkRequest.Builder(MessageWorker.class).build();
-        WorkManager.getInstance(this).enqueue(messageWorkRequest);
         nasaApiService = getNasaApiService();
     }
 

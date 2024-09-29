@@ -2,11 +2,17 @@ package com.example.cosmicwatchapp;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import com.squareup.picasso.Picasso;
 import retrofit2.Call;
@@ -17,7 +23,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     private TextView titleTextView;
     private ImageView pictureImageView;
-    private TextView descriptionTextView;
+    private Button buttonAlert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +38,19 @@ public class MainActivity extends AppCompatActivity {
 
         titleTextView = findViewById(R.id.titleTextView);
         pictureImageView = findViewById(R.id.pictureImageView);
-        descriptionTextView = findViewById(R.id.descriptionTextView);
+        buttonAlert = findViewById(R.id.button_alert);
+
+        buttonAlert.setOnClickListener((View v)-> {
+            this.startNotificationWorker();
+        });
 
         fetchPictureOfDay();
+    }
+
+    public void startNotificationWorker(){
+        OneTimeWorkRequest messageWorkRequest = new OneTimeWorkRequest.Builder(MessageWorker.class).build();
+        WorkManager.getInstance(this).enqueue(messageWorkRequest);
+        Toast.makeText(this, "Pronto! Você está inscrito para receber alertas de meteoro.", Toast.LENGTH_SHORT).show();
     }
 
     private void fetchPictureOfDay() {
