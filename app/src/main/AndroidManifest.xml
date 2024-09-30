@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cosmicwatchapp">
-
     <!-- Permissão para acessar a Internet -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
+        android:name=".PictureOfDayApplication"
         android:allowBackup="true"
         android:label="@string/app_name"
-        android:theme="@style/Theme.CosmicWatchApp"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:name=".PictureOfDayApplication"
-        android:supportsRtl="true">
-
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CosmicWatchApp">
+        <activity
+            android:name=".AsteroidExpandActivity"
+            android:exported="false" />
         <!-- Atividade principal -->
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Serviço para RabbitMQ (caso necessário) -->
-        <service android:name=".MessageService"
-            android:exported="false"/>
+        </activity> <!-- Serviço para RabbitMQ (caso necessário) -->
+        <service
+            android:name=".MessageService"
+            android:exported="false" />
     </application>
 
 </manifest>

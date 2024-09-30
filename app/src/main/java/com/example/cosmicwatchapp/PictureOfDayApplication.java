@@ -30,6 +30,6 @@ public class PictureOfDayApplication extends Application {
     }
 
     public void fetchPictureOfDay(Callback<Picture> callback) {
-        nasaApiService.getPictureOfDay("DEMO_KEY").enqueue(callback);
+        nasaApiService.getPictureOfDay("xgbesIq8RAGRLL7FQjxdzNBfXfQhowZHVH2Gtzsh").enqueue(callback);
     }
 }

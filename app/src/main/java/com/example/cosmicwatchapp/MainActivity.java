@@ -1,7 +1,9 @@
 package com.example.cosmicwatchapp;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,6 +24,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private TextView titleTextView;
+    private TextView copyrightTextView;
     private ImageView pictureImageView;
     private Button buttonAlert;
 
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         titleTextView = findViewById(R.id.titleTextView);
         pictureImageView = findViewById(R.id.pictureImageView);
+        copyrightTextView = findViewById(R.id.copyrightTextView);
         buttonAlert = findViewById(R.id.button_alert);
 
         buttonAlert.setOnClickListener((View v)-> {
@@ -58,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         app.fetchPictureOfDay(new Callback<Picture>() {
             @Override
             public void onResponse(Call<Picture> call, Response<Picture> response) {
+                Log.d("PICTURE", response.body().toString());
                 if (response.isSuccessful() && response.body() != null) {
                     displayPictureOfDay(response.body());
                 }
@@ -71,7 +76,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayPictureOfDay(Picture picture) {
+        String copyright = picture.getCopyright().replace("\n", "");
         titleTextView.setText(picture.getTitle());
+        copyrightTextView.setText(copyright);
         Picasso.get().load(picture.getUrl()).into(pictureImageView);
+    }
+
+    public void startAsteroidExpandActivity(View v){
+        Intent i = new Intent(MainActivity.this, AsteroidExpandActivity.class);
+        startActivity(i);
     }
 }
