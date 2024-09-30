@@ -2,13 +2,10 @@ package com.example.cosmicwatchapp;
 
 import android.app.Application;
 
-import androidx.work.OneTimeWorkRequest;
 
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import androidx.work.WorkManager;
-import android.content.Context;
 
 public class PictureOfDayApplication extends Application {
     private NasaApiService nasaApiService;

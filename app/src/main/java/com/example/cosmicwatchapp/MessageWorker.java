@@ -64,11 +64,11 @@ public class MessageWorker extends Worker {
         Meteor meteor = gson.fromJson(message, Meteor.class);
 
         // Criar a mensagem personalizada para a notificação
-        String notificationMessage = String.format("O meteoro %s tem chances de atingir a Terra. Fujam para Marte!",
-                meteor.getName());
+        String notificationMessage = String.format("O asteróide %s está se aproximando da Terra. Fujam para Marte!",
+                meteor.getName().replace("(", "").replace(")", ""));
 
         // Implementar lógica para processar a mensagem
-        showNotification("Meteoro se aproximando!", notificationMessage);
+        showNotification("Asteróide se aproximando!", notificationMessage);
     }
 
     public void createNotificationChannel() {
